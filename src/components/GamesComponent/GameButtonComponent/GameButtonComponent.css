@@ -1,0 +1,67 @@
+h2 {
+    color: #AF50CE;
+}
+
+
+.game-button-container {
+    display: inline-block;
+    width: 200px;
+    height: 230px;
+}
+
+.game-button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    transition: transform 0.3s;
+
+}
+
+.game-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #000;
+    clip-path: inherit;
+    z-index: -1;
+    transition: transform 0.3s;
+}
+
+.game-button:hover::before {
+    transform: translateY(10px);
+}
+
+.button-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.game-button:hover .button-image {
+    transform: scale(1.05);
+}
+
+.game-button-text {
+    margin-top: 10px;
+    pointer-events: none;
+}
+
+.game-button:hover .game-button-text {
+    opacity: 1;
+}
+
+.game-button-text h2,
+.game-button-text p {
+    margin: 0;
+    padding: 0;
+}

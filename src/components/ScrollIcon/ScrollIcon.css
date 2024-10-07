@@ -1,0 +1,58 @@
+:root {
+    --white: #BFBFBF;
+}
+
+
+.scrollIcon {
+    width: 50px;
+    height: 80px;
+    border: 3px solid var(--white);
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.scrollIcon::after {
+    content: 'Scroll Down';
+    color: var(--white);
+    width: 100px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    animation: scrollText 2s infinite;
+}
+
+.scroll {
+    background: var(--white);
+    width: 6px;
+    height: 14px;
+    display: block;
+    border-radius: 40px;
+    animation: scrollWheel 2s infinite;
+}
+
+@keyframes scrollWheel {
+    0% {
+        opacity: 1;
+        transform: translateY(40%);
+    }
+
+    100% {
+        opacity: 0.7;
+        transform: translateY(130%);
+    }
+}
+
+@keyframes scrollText {
+    0% {
+        opacity: 1;
+        transform: translateY(120%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(180%);
+    }
+}

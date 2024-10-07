@@ -1,0 +1,26 @@
+.games-text-container {
+    display: flex;
+    align-items: center;
+}
+
+.games-text-large {
+    font-size: 42px;
+    line-height: 1;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    margin-top: 6px;
+}
+
+.games-text-medium {
+    font-size: 49px;
+    line-height: 1;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
+}
+
+/* GamesText.css */
+
+.games-svg {
+    transform: translateY(4px);
+    /* Adjust the value as needed */
+}

@@ -1,0 +1,77 @@
+/* PurpleButtonComponent.css */
+
+/* Base button styles */
+.purple-button {
+    --offset: 3px;
+    position: relative;
+    display: inline-block;
+    padding: 12px 24px;
+    background: black;
+    color: white;
+    border: 2px solid #AF50CE;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+/* Pseudo-elements: Always present but hidden by default */
+.purple-button::before,
+.purple-button::after {
+    content: '';
+    position: absolute;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Conic gradient border effect */
+.purple-button::before {
+    background: conic-gradient(transparent 270deg, #AF50CE, transparent);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.4);
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    animation: rotate 2s linear infinite;
+    z-index: -2;
+}
+
+/* Overlay to cover the gradient inside the button */
+.purple-button::after {
+    background: black;
+    inset: var(--offset);
+    z-index: -1;
+}
+
+/* Hover state: Show the pseudo-elements */
+.purple-button:hover {
+    border-color: transparent;
+}
+
+.purple-button:hover::before,
+.purple-button:hover::after {
+    opacity: 1;
+}
+
+/* Keyframes for rotation */
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) scale(1.4) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1.4) rotate(360deg);
+    }
+}
+
+/* Remove text decoration from link wrapper */
+.purple-button-link {
+    text-decoration: none;
+}
+
+.purple-button-link:hover {
+    text-decoration: none;
+}

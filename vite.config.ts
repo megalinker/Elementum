@@ -2,6 +2,8 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import environment from 'vite-plugin-environment';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -31,9 +33,13 @@ export default defineConfig({
     react(),
     environment('all', { prefix: 'CANISTER_' }),
     environment('all', { prefix: 'DFX_' }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: path.resolve(__dirname, 'public/*'),
+          dest: '.'
+        },
+      ]
+    }),
   ],
-  test: {
-    environment: 'jsdom',
-    cache: { dir: '../node_modules/.vitest' },
-  },
 });

@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+.App {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+    h1 {
+        color: #AF50CE;
+    }
+
+    p {
+        padding: 20px;
+    }
+
+}
+
+.space {
+    padding: 20px;
+}
+
+.GamesComponent {
+    padding: 20px;
+}
+
+.gradient-container-1 {
+    position: absolute;
+    width: 67vw;
+    height: 67vw;
+    margin: 20px 0;
+    left: -35vw;
+    top: 4vh;
+    pointer-events: none;
+}
+
+.gradient-container-2 {
+    position: absolute;
+    width: 67vw;
+    height: 67vw;
+    margin: 20px 0;
+    right: -29vw;
+    top: 35vh;
+    pointer-events: none;
+}
+
+.orbitron {
+    font-size: 49px;
+    line-height: 1;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
+}

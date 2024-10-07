@@ -1,0 +1,98 @@
+.center-text {
+    text-align: center;
+}
+
+.video-background-container {
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+}
+
+.video-element {
+    width: 40%;
+    border-radius: 15px;
+    border: 2px solid yellow;
+    z-index: 1;
+}
+
+.gradient-overlay {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.gradient-top-left {
+    top: 0;
+    left: 30%;
+    width: 30%;
+    height: 25%;
+    background: radial-gradient(ellipse at center,
+            rgba(255, 126, 0, 0.4),
+            transparent);
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(15px);
+}
+
+.gradient-top-right {
+    top: 0;
+    right: 30%;
+    width: 30%;
+    height: 25%;
+    background: radial-gradient(ellipse at center,
+            rgba(0, 201, 247, 0.4),
+            transparent);
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(15px);
+}
+
+.gradient-bottom-left {
+    bottom: 0;
+    left: 30%;
+    width: 30%;
+    height: 25%;
+    background: radial-gradient(ellipse at center,
+            rgba(0, 201, 247, 0.4),
+            transparent);
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(15px);
+}
+
+.gradient-bottom-right {
+    bottom: 0;
+    right: 30%;
+    width: 30%;
+    height: 25%;
+    background: radial-gradient(ellipse at center,
+            rgba(255, 126, 0, 0.4),
+            transparent);
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(15px);
+}
+
+.try-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.game-buttons-container {
+    text-align: center;
+    margin-top: 30px;
+}
