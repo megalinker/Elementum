@@ -1,77 +1,61 @@
-/* PurpleButtonComponent.css */
+.purple-button-container:hover {
+    transform: scale(1.10);
+    transition: border-color 0.1s ease, transform 0.1s ease;
+    
+}
 
-/* Base button styles */
 .purple-button {
-    --offset: 3px;
     position: relative;
     display: inline-block;
     padding: 12px 24px;
     background: black;
     color: white;
-    border: 2px solid #AF50CE;
+    border: 1px solid #AF50CE;
     border-radius: 10px;
     font-weight: 500;
     cursor: pointer;
-    overflow: hidden;
     transition: border-color 0.3s ease;
+    font-size: 1em;
 }
 
-/* Pseudo-elements: Always present but hidden by default */
-.purple-button::before,
-.purple-button::after {
-    content: '';
+.purple-button:hover {
+    border-color: black;
+}
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.purple-button:hover::after,
+.purple-button:hover::before {
     position: absolute;
-    border-radius: inherit;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Conic gradient border effect */
-.purple-button::before {
-    background: conic-gradient(transparent 270deg, #AF50CE, transparent);
+    content: "";
+    height: 100%;
+    width: 100%;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1.4);
-    width: calc(100% + 6px);
-    height: calc(100% + 6px);
-    animation: rotate 2s linear infinite;
-    z-index: -2;
-}
-
-/* Overlay to cover the gradient inside the button */
-.purple-button::after {
-    background: black;
-    inset: var(--offset);
+    background-image: conic-gradient(from var(--angle), #AF50CE, black, #AF50CE);
+    transform: translate(-50%, -50%);
     z-index: -1;
+    padding: 2px;
+    border-radius: 10px;
+    animation: 3s spin linear infinite;
 }
 
-/* Hover state: Show the pseudo-elements */
-.purple-button:hover {
-    border-color: transparent;
+.purple-button:hover::before {
+    padding: 15px;
+    filter: blur(1.5em);
+    opacity: 0.5;
 }
 
-.purple-button:hover::before,
-.purple-button:hover::after {
-    opacity: 1;
-}
-
-/* Keyframes for rotation */
-@keyframes rotate {
+@keyframes spin {
     from {
-        transform: translate(-50%, -50%) scale(1.4) rotate(0deg);
+        --angle: 0deg;
     }
 
     to {
-        transform: translate(-50%, -50%) scale(1.4) rotate(360deg);
+        --angle: 360deg;
     }
-}
-
-/* Remove text decoration from link wrapper */
-.purple-button-link {
-    text-decoration: none;
-}
-
-.purple-button-link:hover {
-    text-decoration: none;
 }

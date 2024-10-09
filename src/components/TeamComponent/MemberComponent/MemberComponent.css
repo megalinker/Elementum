@@ -1,0 +1,59 @@
+.member-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    width: 275px;
+}
+
+.hexagon-svg {
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.hexagon-svg:hover {
+    transform: scale(0.95);
+}
+
+.hover-orange-polygon {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translate(0, 0);
+    opacity: 0;
+}
+
+.member-container:hover .hover-orange-polygon {
+    transform: translate(-7px, 5px);
+    opacity: 1;
+}
+
+.member-name {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #AF50CE;
+}
+
+.member-description {
+    font-size: 1rem;
+    color: #CCC;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.social-icon {
+    fill: white;
+    transition: fill 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.social-icon:hover {
+    fill: cyan;
+    transform: scale(1.1);
+}

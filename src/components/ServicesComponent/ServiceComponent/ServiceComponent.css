@@ -1,0 +1,40 @@
+.image-hover-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 250px;
+    margin: 0 auto;
+  }
+
+.image-base {
+    display: block;
+    width: 250px;
+    height: auto;
+}
+
+.overlay-text-sc {
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
+    font-size: 1.15em;
+    font-weight: bold;
+    z-index: 2;
+    text-align: center;
+    width: 75%;
+}
+
+.image-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: auto;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1;
+}
+
+.image-hover-wrapper:hover .image-hover {
+    opacity: 1;
+}

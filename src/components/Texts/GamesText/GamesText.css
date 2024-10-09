@@ -18,9 +18,6 @@
     font-weight: 400;
 }
 
-/* GamesText.css */
-
 .games-svg {
     transform: translateY(4px);
-    /* Adjust the value as needed */
 }

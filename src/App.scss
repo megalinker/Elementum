@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    position: relative;
     width: 100%;
 
     h1 {
@@ -13,17 +13,57 @@
     }
 
     p {
-        padding: 20px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 1.15em;
+        max-width: 75vw;
+        text-align: center;
+        font-weight: 300;
     }
 
+    ul {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 1.15em;
+        max-width: 75vw;
+        text-align: center;
+        font-weight: 300;
+    }
+
+}
+
+.perspectiveBg {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('/assets/PerspectiveGrid.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .space {
     padding: 20px;
 }
 
+.biggerSpace {
+    padding: 40px;
+}
+
+.smallerSpace {
+    padding: 5px;
+}
+
 .GamesComponent {
     padding: 20px;
+}
+
+.textContainer {
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
 }
 
 .gradient-container-1 {

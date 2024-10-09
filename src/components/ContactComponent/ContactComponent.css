@@ -1,0 +1,38 @@
+.contact-container {
+    display: flex;
+    padding: 20px;
+    width: 70%;
+    align-items: center;
+    justify-content: space-around;
+
+    p {
+        text-align: left;
+    }
+
+}
+
+.contact-left {
+    max-width: 33%;
+    min-width: 400px;
+}
+
+.contact-right {
+
+    max-width: 45%;
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+    }
+
+    .contact-left,
+    .contact-right {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+
+h3 {
+    color: cyan;
+}

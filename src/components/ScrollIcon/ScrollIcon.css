@@ -21,7 +21,8 @@
     position: absolute;
     bottom: 0;
     text-align: center;
-    animation: scrollText 2s infinite;
+    animation: scrollText 2s infinite alternate;
+    padding-top: 5px;
 }
 
 .scroll {
@@ -30,7 +31,7 @@
     height: 14px;
     display: block;
     border-radius: 40px;
-    animation: scrollWheel 2s infinite;
+    animation: scrollWheel 2s infinite alternate;
 }
 
 @keyframes scrollWheel {

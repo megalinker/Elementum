@@ -1,0 +1,19 @@
+.games-text-container {
+    display: flex;
+    align-items: center;
+}
+
+.games-text-small {
+    font-size: clamp(16px, 2vw, 24px);
+    line-height: 1;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
+    margin-left: 0.5vw;
+}
+
+.elementum-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 52px;
+}

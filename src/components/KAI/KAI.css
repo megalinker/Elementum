@@ -1,0 +1,39 @@
+.containerKAI {
+    position: relative;
+    width: 741px;
+    height: 585px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.imageBehind {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: auto;
+    animation: fadeInOut 3s infinite;
+    bottom: 7%;
+}
+
+.imageFront {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    bottom: 7%;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

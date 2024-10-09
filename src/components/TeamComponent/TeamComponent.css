@@ -1,0 +1,21 @@
+.members-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 50px;
+    column-gap: 5vw;
+    padding: 40px 0;
+    max-width: 1250px;
+}
+
+@media (max-width: 900px) {
+    .members-list-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+    }
+}
+
+@media (max-width: 600px) {
+    .members-list-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
+    }
+}

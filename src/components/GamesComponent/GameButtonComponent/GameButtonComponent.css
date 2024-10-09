@@ -2,11 +2,26 @@ h2 {
     color: #AF50CE;
 }
 
-
 .game-button-container {
     display: inline-block;
     width: 200px;
     height: 230px;
+    position: relative;
+}
+
+.svg-border {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.border-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
 
 .game-button {
@@ -18,9 +33,13 @@ h2 {
     cursor: pointer;
     overflow: hidden;
     padding: 0;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 1%, 98.5% 25%, 98.5% 75%, 50% 98.5%, 1.5% 75%, 1.5% 25%);
     transition: transform 0.3s;
-
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
 }
 
 .game-button::before {
@@ -30,7 +49,7 @@ h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    border: 2px solid #000;
+    border: none;
     clip-path: inherit;
     z-index: -1;
     transition: transform 0.3s;
@@ -52,7 +71,7 @@ h2 {
 }
 
 .game-button-text {
-    margin-top: 10px;
+    margin-top: 33px;
     pointer-events: none;
 }
 
@@ -64,4 +83,72 @@ h2 {
 .game-button-text p {
     margin: 0;
     padding: 0;
+    text-align: center;
+}
+
+.coming-soon-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(25%);
+    transition: filter 0.3s;
+}
+
+.coming-soon-content .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+}
+
+.coming-soon-text {
+    position: absolute;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+}
+
+.hexagon-border {
+    height: 240px;
+    position: absolute;
+    top: -5px;
+    left: -20px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.cyan-hexagon-border {
+    height: 240px;
+    position: absolute;
+    top: -5px;
+    left: -20px;
+    z-index: 0;
+    pointer-events: none;
+    transition: transform 0.5s ease;
+    transform: translateY(0);
+}
+
+.game-button-container:hover .cyan-hexagon-border {
+    transform: translateY(20px);
 }

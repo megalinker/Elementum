@@ -1,4 +1,3 @@
-// PurpleButtonComponent.tsx
 import React from 'react';
 import './PurpleButtonComponent.css';
 
@@ -9,9 +8,11 @@ interface PurpleButtonProps {
 
 const PurpleButtonComponent: React.FC<PurpleButtonProps> = ({ onClick, children }) => {
     return (
-        <button className="purple-button" onClick={onClick}>
-            {children}
-        </button>
+        <div className="purple-button-container">
+            <button className="purple-button" onClick={onClick}>
+                {children}
+            </button>
+        </div>
     );
 };
 

@@ -1,0 +1,79 @@
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    position: relative;
+}
+
+.navbar-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 10vw;
+}
+
+.navbar-svg {
+    margin-top: 5px;
+    transition: transform 0.3s ease;
+    position: absolute;
+    top: 33px;
+    pointer-events: none;
+}
+
+.diagonal {
+    transition: transform 0.3s ease;
+}
+
+.navbar-buttons {
+    display: flex;
+    gap: 2.25vw;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.navbar-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: calc(8px + 0.5vw);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbar-button:hover {
+    color: #AF50CE;
+}
+
+.navbar:hover .navbar-buttons {
+    opacity: 1;
+    visibility: visible;
+}
+
+.left-buttons {
+    position: absolute;
+    left: 25%;
+    top: 40%;
+}
+
+.right-buttons {
+    position: absolute;
+    right: 24%;
+    top: 40%;
+}
