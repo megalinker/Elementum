@@ -6,9 +6,9 @@ const ElementumLogo: React.FC = () => {
         <div className="games-text-container">
             <svg
                 className="elementum-svg"
-                width="100%"        /* Make SVG take full width of parent */
-                height="auto"       /* Maintain aspect ratio */
-                viewBox="0 0 42 52" /* Ensure viewBox matches SVG content */
+                width="100%"
+                height="auto"
+                viewBox="0 0 42 52"
                 xmlns="http://www.w3.org/2000/svg"
                 role="img"
                 aria-label="Elementum Logo"

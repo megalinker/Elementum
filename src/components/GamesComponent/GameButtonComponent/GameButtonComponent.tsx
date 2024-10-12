@@ -82,7 +82,9 @@ const GameButtonComponent: React.FC<GameButtonProps> = ({
                         )}
                     </button>
                 )}
+
                 {/* Yellow Border */}
+                
                 <svg
                     className="border-svg"
                     xmlns="http://www.w3.org/2000/svg"
@@ -91,11 +93,11 @@ const GameButtonComponent: React.FC<GameButtonProps> = ({
                 >
                     <defs>
                         <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#D4D900" stop-opacity="0.4" />
+                            <stop offset="0%" stopColor="#D4D900" stopOpacity="0.4" />
                             <stop offset="25%" stopColor="#F9FF00" />
-                            <stop offset="50%" stopColor="#D4D900" stop-opacity="0.4" />
+                            <stop offset="50%" stopColor="#D4D900" stopOpacity="0.4" />
                             <stop offset="75%" stopColor="#F9FF00" />
-                            <stop offset="100%" stopColor="#D4D900" stop-opacity="0.4" />
+                            <stop offset="100%" stopColor="#D4D900" stopOpacity="0.4" />
                         </linearGradient>
                     </defs>
                     <polygon

@@ -18,7 +18,7 @@ const membersData: Member[] = [
         name: '@Kellios_one',
         description:
             'Project Lead managing design, UX, and game dynamics with 5+ years in game and economic design.',
-        imageSrc: 'https://via.placeholder.com/150',
+        imageSrc: 'assets/Team/kellios.webp',
         xAccount: 'Kellios_one',
         discord: 'https://discord.gg/JpdQ8zXcZK',
     },

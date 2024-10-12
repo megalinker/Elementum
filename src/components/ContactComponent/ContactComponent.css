@@ -1,5 +1,6 @@
 .contact-container {
     display: flex;
+    flex-wrap: wrap;
     padding: 20px;
     width: 70%;
     align-items: center;
@@ -17,19 +18,21 @@
 }
 
 .contact-right {
-
+    min-width: 741px;
     max-width: 45%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1704px) {
     .contact-container {
         flex-direction: column;
+        width: auto;
     }
 
-    .contact-left,
     .contact-right {
-        margin-right: 0;
-        margin-bottom: 20px;
+        height: 28vw;
+        width: 50%;
+        min-width: 370px;
+        min-height: 275px;
     }
 }
 

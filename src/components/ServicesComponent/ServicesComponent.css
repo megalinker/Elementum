@@ -7,7 +7,7 @@
 .services-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 100px;
+    gap: 6vw;
     justify-content: center;
     width: 80vw;
 }

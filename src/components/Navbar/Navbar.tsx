@@ -5,19 +5,21 @@ import { useMediaQuery } from 'react-responsive';
 
 interface NavbarProps {
     scrollToSection: (section: 'home' | 'games' | 'about' | 'services' | 'contact' | 'socials') => void;
+    openMenu: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ scrollToSection }) => {
+const Navbar: React.FC<NavbarProps> = ({ scrollToSection, openMenu }) => {
 
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     const [isHovered, setIsHovered] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const path1Default = "M500,5 L1000,5 L1050,49 L1272,49";
-    const path1Hover = "M0,5 L500,5 L550,49 L1272,49";
+    const path1Default = "M500,5 L1000,5 L1050,49 L1273,49";
+    const path1Hover = "M0,5 L500,5 L550,49 L1273,49";
 
     const path2Default = "M2044,5 L1544,5 L1493,49 L1273,49";
-    const path2Hover = "M2544,5 L2044,5 L1943,49 L1273,49";
+    const path2Hover = "M2544,5 L2044,5 L1993,49 L1273,49";
 
     const gradient1 = isHovered ? "hoverStrokeGradient" : "strokeGradient";
     const gradient2 = isHovered ? "hoverStrokeGradient2" : "strokeGradient2";
@@ -33,10 +35,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToSection }) => {
             setIsHovered(false);
         }
     };
-
     return (
         <nav
-            className="navbar"
+            className={`navbar ${isHovered ? 'hovered-clip' : 'default-clip'}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -44,8 +45,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToSection }) => {
             <div className="navbar-container">
 
                 {/* Left Buttons */}
-                
-                {!isMobile && (
+
+                {/* Left Buttons or Hamburger Menu */}
+                {!isMobile ? (
                     <div className="navbar-buttons left-buttons">
                         <button onClick={() => scrollToSection('home')} className="navbar-button">
                             Home
@@ -57,6 +59,19 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToSection }) => {
                             About
                         </button>
                     </div>
+                ) : (
+                    <button
+                        className="navbar-menu-button"
+                        onClick={openMenu}
+                        aria-label="Open Menu"
+                    >
+                        {/* Hamburger SVG */}
+                        <svg width="30" height="30" viewBox="0 0 100 80" fill="white">
+                            <rect width="100" height="10"></rect>
+                            <rect y="30" width="100" height="10"></rect>
+                            <rect y="60" width="100" height="10"></rect>
+                        </svg>
+                    </button>
                 )}
 
                 {/* Logo and SVG */}
@@ -121,6 +136,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToSection }) => {
                         </button>
                     </div>
                 )}
+
             </div>
         </nav>
     );

@@ -1,5 +1,5 @@
 import './App.scss';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import RadialGradient from './components/radialGradient/radialGradient';
 import PurpleButtonComponent from './components/PurpleButtonComponent/PurpleButtonComponent';
 import ScrollIcon from './components/ScrollIcon/ScrollIcon';
@@ -13,11 +13,35 @@ import Navbar from './components/Navbar/Navbar';
 import ServicesComponent from './components/ServicesComponent/ServicesComponent';
 import PerspectiveGrid from '/assets/PerspectiveGrid.svg';
 import HeroComponent from './components/HeroComponent/HeroComponent';
+import MobileMenuComponent from './components/MobileMenuComponent/MobileMenuComponent';
 
 interface SectionRefs {
   [key: string]: React.RefObject<HTMLDivElement>;
 }
 function App() {
+
+
+  // Mobile Menu
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Prevent body from scrolling when the menu is open
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isMenuOpen]);
+
+  const openMenu = () => {
+    setIsMenuOpen(true);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   const sectionRefs: SectionRefs = {
     home: useRef<HTMLDivElement>(null),
@@ -48,7 +72,9 @@ function App() {
   return (
     <div className="App">
 
-      <Navbar scrollToSection={scrollToSection} />
+      <Navbar scrollToSection={scrollToSection} openMenu={openMenu} />
+
+      {isMenuOpen && <MobileMenuComponent scrollToSection={scrollToSection} closeMenu={closeMenu} />}
 
       {/* Background Gradients */}
       <div className="gradient-container-1">
@@ -129,6 +155,8 @@ function App() {
       <YellowLines ref={sectionRefs.contact}>
         <div className="orbitron">Contact us</div>
       </YellowLines>
+
+      <div className="smallerSpace" />
 
       <ContactComponent />
 

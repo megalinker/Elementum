@@ -11,12 +11,50 @@
     -webkit-backdrop-filter: blur(8px);
 }
 
+.navbar.default-clip {
+    clip-path: polygon(0% 0%,
+            100% 0%,
+            100% 55%,
+            60.7% 55%,
+            58.67% 101%,
+            41.3% 101%,
+            39.3% 55%,
+            0% 55%);
+    -webkit-clip-path: polygon(0% 0%,
+            100% 0%,
+            100% 55%,
+            60.7% 55%,
+            58.67% 101%,
+            41.3% 101%,
+            39.3% 55%,
+            0% 55%);
+}
+
+.navbar.hovered-clip {
+    clip-path: polygon(0% 0%,
+            100% 0%,
+            100% 55%,
+            80.37% 55%,
+            78.32% 101%,
+            21.64% 101%,
+            19.64% 55%,
+            0% 55%);
+    -webkit-clip-path: polygon(0% 0%,
+            100% 0%,
+            100% 55%,
+            80.37% 55%,
+            78.32% 101%,
+            21.64% 101%,
+            19.64% 55%,
+            0% 55%);
+}
+
 
 .navbar-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80px;
+    height: 87px;
     position: relative;
 }
 
@@ -52,7 +90,7 @@
     background: none;
     border: none;
     color: white;
-    font-size: calc(8px + 0.5vw);
+    font-size: calc(6px + 0.5vw);
     cursor: pointer;
     transition: color 0.3s ease;
 }
@@ -69,11 +107,79 @@
 .left-buttons {
     position: absolute;
     left: 25%;
-    top: 40%;
+    top: 42%;
 }
 
 .right-buttons {
     position: absolute;
     right: 24%;
-    top: 40%;
+    top: 42%;
+}
+
+.navbar-menu-button {
+    position: absolute;
+    left: 20px;
+    top: 22%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.navbar-menu-button svg rect {
+    fill: white;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.mobile-menu {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+}
+
+.mobile-menu-item {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-align: left;
+    padding: 10px 0;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu-item:hover {
+    color: #AF50CE;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
 }
