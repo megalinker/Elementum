@@ -30,6 +30,25 @@
             0% 55%);
 }
 
+.navbar.default-clip-mobile {
+    clip-path: polygon(0% 0%,
+            100% 0%,
+            100% 55%,
+            60.7% 55%,
+            58.67% 80%,
+            41.3% 80%,
+            39.3% 55%,
+            0% 55%);
+    -webkit-clip-path: polygon(0% 0%,
+            100% 0%,
+            100% 55%,
+            60.7% 55%,
+            58.67% 80%,
+            41.3% 80%,
+            39.3% 55%,
+            0% 55%);
+}
+
 .navbar.hovered-clip {
     clip-path: polygon(0% 0%,
             100% 0%,

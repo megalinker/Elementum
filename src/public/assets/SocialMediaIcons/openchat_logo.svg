@@ -1,0 +1,32 @@
+
+
+<svg version="1.1" id="Capa_1" xmlns:bx="https://boxy-svg.com"
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    viewBox="0 0 361 361"
+    style="enable-background:new 0 0 361 361;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#191919;}
+	.st1{fill:url(#SVGID_1_);}
+	.st2{fill:url(#SVGID_00000142148829097528353110000005211220309497655467_);}
+</style>
+<g transform="matrix(1, 0, 0, 1, -69.98674, -69.986298)">
+	<circle class="st0" cx="250" cy="250" r="100"/>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-32.3207" y1="563.5336" x2="-32.3207" y2="203.5336" gradientTransform="matrix(-1 1.526000e-03 1.922829e-03 1.2591 216.8613 -285.6151)">
+		<stop  offset="0" style="stop-color:#FBB03B"/>
+		<stop  offset="1" style="stop-color:#F05A24"/>
+	</linearGradient>
+	<path bx:shape="ring 188.919 181.638 100 100 180 180 1@55492482" class="st1" d="M70,250c0,99.4,80.6,180,180,180
+		s180-80.6,180-180S349.4,70,250,70C150.6,70,70,150.6,70,250z M150,250c0-55.2,44.8-100,100-100s100,44.8,100,100
+		s-44.8,100-100,100S150,305.2,150,250z"/>
+	
+		<linearGradient id="SVGID_00000075883632240205947270000006749659025593655944_" gradientUnits="userSpaceOnUse" x1="1044.3777" y1="331.5737" x2="1044.3777" y2="44.1617" gradientTransform="matrix(1.005 -0.2332 -0.3203 -1.3806 -640.3849 695.2421)">
+		<stop  offset="0" style="stop-color:#5F2583"/>
+		<stop  offset="1" style="stop-color:#ED1E79"/>
+	</linearGradient>
+	
+		<path bx:shape="pie 857.703 244.371 96.924 175.433 35 145 1@99003c38" style="fill:url(#SVGID_00000075883632240205947270000006749659025593655944_);" d="
+		M354.1,103.3C436,160,455.9,271.7,398.6,352.7c-12.1,17.1-27.2,32-44.4,44L307.7,331c45.2-31.3,56.2-93,24.6-137.8
+		c-6.7-9.5-15-17.7-24.6-24.3L354.1,103.3z"/>
+</g>
+</svg>

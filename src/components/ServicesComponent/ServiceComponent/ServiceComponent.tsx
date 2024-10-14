@@ -5,13 +5,11 @@ interface ServiceComponentProps {
     baseImage: string;
     hoverImage: string;
     text: string;
-    onHover: () => void;
-    onLeave: () => void;
 }
 
-const ServiceComponent: React.FC<ServiceComponentProps> = ({ baseImage, hoverImage, text, onHover, onLeave }) => {
+const ServiceComponent: React.FC<ServiceComponentProps> = ({ baseImage, hoverImage, text }) => {
     return (
-        <div className="image-hover-wrapper" onMouseEnter={onHover} onMouseLeave={onLeave}>
+        <div className="image-hover-wrapper" >
             <img src={baseImage} alt="" className="image-base" />
             <div className="overlay-text-sc">{text}</div>
             <img src={hoverImage} alt="" className="image-hover" />

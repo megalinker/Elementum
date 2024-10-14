@@ -22,6 +22,9 @@
     z-index: 2;
     text-align: center;
     width: 75%;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .image-hover {

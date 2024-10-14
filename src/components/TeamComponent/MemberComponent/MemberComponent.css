@@ -29,13 +29,13 @@
 }
 
 .member-name {
-    font-size: 1.5rem;
+    font-size: 1.5em;
     margin: 10px 0;
     color: #AF50CE;
 }
 
 .member-description {
-    font-size: 1rem;
+    font-size: 1em;
     color: #CCC;
 }
 
@@ -56,4 +56,19 @@
 .social-icon:hover {
     fill: cyan;
     transform: scale(1.1);
+}
+
+@media (max-width: 1300px) {
+    .member-name {
+        font-size: 1.25em;
+    }
+
+
+
+}
+
+@media (max-width: 960px) {
+    .member-container {
+        width: 200px;
+    }
 }

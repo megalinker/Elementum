@@ -23,13 +23,32 @@
 }
 
 @media (max-width: 1704px) {
+
+    .contact-right {
+        height: 22vw;
+        width: 50%;
+        min-width: 370px;
+        min-height: 275px;
+    }
+}
+
+@media (max-width: 1400px) {
     .contact-container {
         flex-direction: column;
         width: auto;
     }
 
+    .contact-left {
+        max-width: 60%;
+        min-width: 400px;
+
+        p {
+            min-width: 425px;
+        }
+    }
+
     .contact-right {
-        height: 28vw;
+        height: 27vw;
         width: 50%;
         min-width: 370px;
         min-height: 275px;

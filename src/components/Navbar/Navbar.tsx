@@ -10,15 +10,20 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ scrollToSection, openMenu }) => {
 
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+    const isMobile = useMediaQuery({ query: '(max-width: 950px)' });
 
     const [isHovered, setIsHovered] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const path1Default = "M500,5 L1000,5 L1050,49 L1273,49";
+    const desktopPath1Default = "M500,5 L1000,5 L1050,49 L1273,49";
+    const desktopPath2Default = "M2044,5 L1544,5 L1493,49 L1273,49";
+
+    const mobilePath1Default = "M500,5 L1000,5 L1050,29 L1273,29";
+    const mobilePath2Default = "M2044,5 L1544,5 L1493,29 L1273,29";
+
+    const path1Default = isMobile ? mobilePath1Default : desktopPath1Default;
     const path1Hover = "M0,5 L500,5 L550,49 L1273,49";
 
-    const path2Default = "M2044,5 L1544,5 L1493,49 L1273,49";
+    const path2Default = isMobile ? mobilePath2Default : desktopPath2Default;
     const path2Hover = "M2544,5 L2044,5 L1993,49 L1273,49";
 
     const gradient1 = isHovered ? "hoverStrokeGradient" : "strokeGradient";
@@ -37,7 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToSection, openMenu }) => {
     };
     return (
         <nav
-            className={`navbar ${isHovered ? 'hovered-clip' : 'default-clip'}`}
+            className={`navbar ${isMobile ? 'default-clip-mobile' : (isHovered ? 'hovered-clip' : 'default-clip')}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >

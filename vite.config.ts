@@ -18,6 +18,9 @@ export default defineConfig({
     esbuildOptions: {
       define: {
         global: 'globalThis',
+        'process.env': JSON.stringify({
+          DEV_MAIL: process.env.DEV_MAIL,
+        })
       },
     },
   },
@@ -33,6 +36,7 @@ export default defineConfig({
     react(),
     environment('all', { prefix: 'CANISTER_' }),
     environment('all', { prefix: 'DFX_' }),
+    environment('all', { prefix: 'DEV_' }),
     viteStaticCopy({
       targets: [
         {

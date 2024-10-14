@@ -101,3 +101,17 @@
     row-gap: 150px;
     margin-top: 15px;
 }
+
+@media (max-width: 1200px) {
+    .game-buttons-container {
+        column-gap: 50px;
+        row-gap: 100px;
+    }
+}
+
+@media (max-width: 950px) {
+    .game-buttons-container {
+        column-gap: 25px;
+        row-gap: 100px;
+    }
+}

@@ -85,27 +85,34 @@ function App() {
       </div>
 
       <div className="biggerSpace" />
-      <div className="biggerSpace" />
+      <div className="space" />
+      <div className="smallerSpace" />
+      <div className="smallerSpace" />
 
       {/* Hero */}
       <h1 ref={sectionRefs.home}>Innovating Web3 Games</h1>
       <p>We develop unique games and offer game development services for third parties. Explore the future of gaming with us</p>
 
-      <div className="space" />
+      <div className="smallerSpace" />
+      <div className="smallerSpace" />
 
       <HeroComponent />
 
-      <div className="space" />
+      <div className="smallerSpace" />
+      <div className="smallerSpace" />
 
       <PurpleButtonComponent onClick={() => scrollToSection('contact')}>
         Contact Us
       </PurpleButtonComponent>
 
-      <div className="space" />
+      <div className="smallerSpace" />
+      <div className="smallerSpace" />
+      <div className="smallerSpace" />
 
       <ScrollIcon />
 
-      <div className="biggerSpace" />
+      <div className="space" />
+      <div className="space" />
 
       {/* Games */}
       <YellowLines ref={sectionRefs.games}>

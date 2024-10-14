@@ -15,19 +15,37 @@
 .service-item {
     display: flex;
     box-sizing: border-box;
+    flex-direction: column;
 }
 
 .service-description {
     margin-top: 40px;
-    font-size: 1.2em;
     text-align: center;
     color: white;
     min-height: 100px;
-    width: 70vw;
+    width: 60vw;
+    min-width: 350px;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+    font-size: 1.15em;
+    font-weight: 300;
 }
 
 .service-description.visible {
     opacity: 1;
+}
+
+@media (max-width: 1300px) {
+
+    .service-description {
+        font-size: 0.85em;
+    }
+
+}
+
+@media (max-width: 1000px) {
+
+    .service-description {
+        font-size: 0.8em;
+    }
 }

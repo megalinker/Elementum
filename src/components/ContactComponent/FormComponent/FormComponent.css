@@ -127,3 +127,8 @@
 .message-input-icon {
     margin-top: -144px;
 }
+
+.submitButton {
+    display: flex;
+    justify-content: center;
+}

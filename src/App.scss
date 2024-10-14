@@ -65,6 +65,7 @@
     text-align: center;
     width: 60%;
     margin: 0 auto;
+    min-width:350px;
 }
 
 .gradient-container-1 {
@@ -92,4 +93,60 @@
     line-height: 1;
     font-family: 'Orbitron', sans-serif;
     font-weight: 400;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (max-width: 1300px) {
+    .App {
+        h1 {
+            font-size: 1.33em;
+        }
+
+        p {
+            font-size: 0.85em;
+        }
+
+        ul {
+            font-size: 0.85em;
+
+        }
+
+    }
+
+    .biggerSpace {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .App {
+        h1 {
+            font-size: 1.25em;
+        }
+
+        p {
+            font-size: 0.8em;
+        }
+
+        ul {
+            font-size: 0.8em;
+
+        }
+
+    }
+
+    .biggerSpace {
+        padding: 30px;
+    }
+
+    .smallerSpace{
+        padding: 3px;
+    }
+
+    .space {
+        padding: 15px;
+    }
+    
 }

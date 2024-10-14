@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ServicesComponent.css';
 import ServiceComponent from './ServiceComponent/ServiceComponent';
+import { useMediaQuery } from 'react-responsive';
 
 interface Service {
     baseImage: string;
@@ -38,32 +39,37 @@ const services: Service[] = [
 
 const ServicesComponent: React.FC = () => {
 
-    const [hoveredDescription, setHoveredDescription] = useState('');
-
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const isMobile = useMediaQuery({ query: '(max-width: 675px)' });
 
 
     return (
         <>
             <div className="services-container" >
                 {services.map((service, index) => (
-                    <div key={index} className="service-item">
+                    <div key={index} className="service-item" onMouseEnter={() => setHoveredIndex(index)} onMouseLeave={() => setHoveredIndex(null)} onTouchStart={() => setHoveredIndex(index)}>
                         <ServiceComponent
                             baseImage={service.baseImage}
                             hoverImage={service.hoverImage}
                             text={service.text}
-                            onHover={() => setHoveredDescription(service.description)}
-                            onLeave={() => setHoveredDescription('')}
                         />
+                        {isMobile && hoveredIndex === index && (
+                            <div className="service-description visible">
+                                {service.description}
+                            </div>
+                        )}
                     </div>
                 ))}
-
             </div>
 
             <div className="space" />
 
-            <div className={`service-description ${hoveredDescription ? 'visible' : ''}`}>
-                {hoveredDescription}
-            </div>
+            {!isMobile && hoveredIndex !== null && (
+                <div className="service-description visible">
+                    {services[hoveredIndex].description}
+                </div>
+            )}
+            
         </>
     );
 };
