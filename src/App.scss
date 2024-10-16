@@ -64,8 +64,7 @@
 .textContainer {
     text-align: center;
     width: 60%;
-    margin: 0 auto;
-    min-width:350px;
+    min-width: 350px;
     justify-content: center;
     display: flex;
 }
@@ -126,6 +125,7 @@
     .App {
         h1 {
             font-size: 1.25em;
+            text-align: center;
         }
 
         p {
@@ -143,12 +143,12 @@
         padding: 30px;
     }
 
-    .smallerSpace{
+    .smallerSpace {
         padding: 3px;
     }
 
     .space {
         padding: 15px;
     }
-    
+
 }

@@ -40,6 +40,17 @@
     transition: clip-path 0.6s ease-in-out;
 }
 
+.navbar.default-clip-ultrasmall {
+    clip-path: polygon(0% 0%,
+            100% 0%,
+            100% 55%,
+            0% 55%);
+    -webkit-clip-path: polygon(0% 0%,
+            100% 0%,
+            100% 55%,
+            0% 55%);
+}
+
 .navbar.default-clip-mobile {
     clip-path: polygon(0% 0%,
             100% 0%,

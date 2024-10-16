@@ -55,7 +55,15 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToSection, openMenu }) => {
     };
     return (
         <nav
-            className={`navbar ${isMobile ? 'default-clip-mobile' : (isHovered ? 'hovered-clip' : 'default-clip')}`}
+            className={`navbar ${isUltraSmall
+                    ? 'default-clip-ultrasmall'
+                    : (isMobile
+                        ? 'default-clip-mobile'
+                        : (isHovered
+                            ? 'hovered-clip'
+                            : 'default-clip')
+                    )
+                }`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
