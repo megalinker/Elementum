@@ -35,7 +35,6 @@ const gamesList: GameData[] = [
         title: 'Elementum TCG',
         description: 'Build Your Deck and Dominate',
         videoSources: [
-            { src: 'assets/ElementumVideo/TCG_AV1.webm', type: 'video/webm; codecs="av01"' },
             { src: 'assets/ElementumVideo/TCG_VP9.webm', type: 'video/webm; codecs="vp9"' },
             { src: 'assets/ElementumVideo/TCG_MP4.mp4', type: 'video/mp4' },
         ],
@@ -48,7 +47,6 @@ const gamesList: GameData[] = [
         title: 'Pop Off Gallery',
         description: 'Aim. Shoot. Fire.',
         videoSources: [
-            { src: 'assets/PopOffVideo/PopOff_AV1.webm', type: 'video/webm; codecs="av01"' },
             { src: 'assets/PopOffVideo/PopOff_VP9.webm', type: 'video/webm; codecs="vp9"' },
             { src: 'assets/PopOffVideo/PopOff_MP4.mp4', type: 'video/mp4' },
         ],
@@ -61,7 +59,6 @@ const gamesList: GameData[] = [
         title: 'Danton Defender',
         description: 'Dont let the rockets hit the city!',
         videoSources: [
-            { src: 'assets/DantonVideo/Danton_AV1.webm', type: 'video/webm; codecs="av01"' },
             { src: 'assets/DantonVideo/Danton_VP9.webm', type: 'video/webm; codecs="vp9"' },
             { src: 'assets/DantonVideo/Danton_MP4.mp4', type: 'video/mp4' },
         ],
@@ -103,7 +100,7 @@ const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scroll
     };
 
     useEffect(() => {
-        let isCancelled = false; // To avoid updating state after unmount
+        let isCancelled = false;
 
         const preloadResources = () => {
             let resourcesToLoad = 0;
