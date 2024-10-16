@@ -158,11 +158,9 @@ const FormComponent: React.FC = () => {
             <div className="smallerSpace" />
 
             <div className="submitButton" >
-                <button type="submit" style={{ all: 'unset' }}>
-                    <PurpleButtonComponent>
-                        Submit
-                    </PurpleButtonComponent>
-                </button>
+                <PurpleButtonComponent type="submit">
+                    Submit
+                </PurpleButtonComponent>
             </div>
 
         </form>

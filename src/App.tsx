@@ -73,7 +73,6 @@ function App() {
   };
 
   const handleComponentLoaded = () => {
-    console.log('HeroComponent has loaded');
     setComponentsLoaded((prev) => {
       const newCount = prev + 1;
       if (newCount === totalComponents) {

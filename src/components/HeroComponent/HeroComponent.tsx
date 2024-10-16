@@ -44,7 +44,6 @@ const HeroComponent: React.FC<HeroComponentProps> = ({ onLoaded }) => {
                 if (canPlayVP9 === 'probably' || canPlayVP9 === 'maybe') {
                     return { redRocket: RedRocket_VP9, grayRocket: GrayRocket_VP9 };
                 } else {
-                    console.log('Browser does not support AV1 or VP9');
                     // Fallback to images
                     return { redRocket: null, grayRocket: null };
                 }
@@ -123,7 +122,6 @@ const HeroComponent: React.FC<HeroComponentProps> = ({ onLoaded }) => {
             if (allPromises.length > 0) {
                 Promise.all(allPromises)
                     .then(() => {
-                        console.log('All assets loaded');
                         onLoaded(); // All assets are loaded, call onLoaded
                     })
                     .catch((error) => {
