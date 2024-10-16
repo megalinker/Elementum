@@ -27,14 +27,12 @@ const membersData: Member[] = [
         discord: 'https://discord.gg/JpdQ8zXcZK',
     },
     {
-        name: '@capuzr',
+        name: '@luchoart',
         description:
-            'Projects Booster and Motoko developer with 8 years in software development and 3 years in Motoko and IC architecture.',
-        imageSrc: 'assets/Team/capuzr.webp',
-        xAccount: 'capuzr',
-        linkedIn: 'https://www.linkedin.com/in/capuzr/',
-        github: 'https://github.com/capuzr',
+            'Illustrator and animator with 7+ years experience, responsible for brand identity and asset illustrations.',
+        imageSrc: 'assets/Team/luchoart.webp',
         discord: 'https://discord.gg/JpdQ8zXcZK',
+        instagram: 'dlucho.art',
     },
     {
         name: '@dgranado.icp',
@@ -54,12 +52,14 @@ const membersData: Member[] = [
         discord: 'https://discord.gg/JpdQ8zXcZK',
     },
     {
-        name: '@luchoart',
+        name: '@capuzr',
         description:
-            'Illustrator and animator with 7+ years experience, responsible for brand identity and asset illustrations.',
-        imageSrc: 'assets/Team/luchoart.webp',
+            'Projects Booster and Motoko developer with 8 years in software development and 3 years in Motoko and IC architecture.',
+        imageSrc: 'assets/Team/capuzr.webp',
+        xAccount: 'capuzr',
+        linkedIn: 'https://www.linkedin.com/in/capuzr/',
+        github: 'https://github.com/capuzr',
         discord: 'https://discord.gg/JpdQ8zXcZK',
-        instagram: 'dlucho.art',
     },
 ];
 

@@ -102,6 +102,14 @@
     text-decoration: none;
 }
 
+.footer-link-text.clickable {
+    cursor: pointer;
+}
+
+.icon-popup.clickable {
+    cursor: pointer;
+}
+
 .footer-link .icon-popup {
     position: absolute;
     top: -80px;

@@ -190,7 +190,7 @@ function App() {
           <div className="biggerSpace" />
 
           {/* Footer */}
-          <Footer ref={sectionRefs.socials} />
+          <Footer ref={sectionRefs.socials} scrollToSection={scrollToSection}/>
 
     </div>
   );
