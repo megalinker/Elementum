@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './GameButtonComponent.css';
 import placeholderImage from '/assets/GameImages/Placeholder.webp';
 
@@ -21,8 +21,9 @@ const GameButtonComponent: React.FC<GameButtonProps> = ({
     comingSoon,
     title,
     description,
-    selected,
+    selected
 }) => {
+
     return (
         <div className="game-button-container">
 
@@ -84,7 +85,7 @@ const GameButtonComponent: React.FC<GameButtonProps> = ({
                 )}
 
                 {/* Yellow Border */}
-                
+
                 <svg
                     className="border-svg"
                     xmlns="http://www.w3.org/2000/svg"

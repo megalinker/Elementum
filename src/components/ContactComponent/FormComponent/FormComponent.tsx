@@ -10,7 +10,7 @@ const FormComponent: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        fetch('https://elementum-microback.vercel.app/sendMail', {
+        fetch('https://dotest.konecta.one/send-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -126,11 +126,11 @@ const FormComponent: React.FC = () => {
 
             {/* Message Input */}
             <div className="input-wrapper message-input-wrapper">
-                <svg className="svg-border-f" viewBox="0 0 500 200">
+                <svg className="svg-border-f input-f" viewBox="0 0 500 200">
                     <polygon points="20,-20 480,-20 500,102 480,224 20,224 0,102" stroke={getGradient(message)} strokeWidth="2" fill="none" />
                 </svg>
 
-                <svg className="yellow-blur-line1" viewBox="0 0 500 200">
+                <svg className="yellow-blur-line1 input-f" viewBox="0 0 500 200">
                     <polygon points="20,-15 480,-15 500,102 480,222 20,222 0,102" stroke={getGradient(message)} strokeWidth="4" fill="none" />
                 </svg>
 

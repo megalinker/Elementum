@@ -28,12 +28,13 @@
 .menu-container {
     background: rgba(0, 0, 0, 0.90);
     padding: 30px 20px;
-    width: 40%;
-    max-width: 400px;
+    width: 45%;
+    max-width: 300px;
+    min-width: 150px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     transform: translateX(-100%);
     animation: slideIn 0.3s forwards;
@@ -49,13 +50,22 @@
     background: none;
     border: none;
     color: white;
-    font-size: 1.5rem;
+    font-size: clamp(10px, 6vw, 24px);
     cursor: pointer;
     text-align: left;
-    padding: 10px 0;
     transition: color 0.3s ease;
 }
 
 .menu-item:hover {
     color: #AF50CE;
+}
+
+.elementum {
+    width: 100px;
+    padding-left: 25px;
+    margin-bottom: 10vh;
+}
+
+.kai {
+    margin-top: 15vh;
 }

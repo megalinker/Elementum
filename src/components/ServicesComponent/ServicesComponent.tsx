@@ -39,37 +39,105 @@ const services: Service[] = [
 
 const ServicesComponent: React.FC = () => {
 
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [hoveredFirstGroupIndex, setHoveredFirstGroupIndex] = useState<number | null>(null);
+    const [hoveredSecondGroupIndex, setHoveredSecondGroupIndex] = useState<number | null>(null);
+    const isMedium = useMediaQuery({ query: '(max-width: 1612px)' });
     const isMobile = useMediaQuery({ query: '(max-width: 675px)' });
 
+    // Determine how to split services for medium screens
+    const splitIndex = Math.ceil(services.length / 2);
+    const firstGroup = services.slice(0, splitIndex);
+    const secondGroup = services.slice(splitIndex);
 
     return (
         <>
-            <div className="services-container" >
-                {services.map((service, index) => (
-                    <div key={index} className="service-item" onMouseEnter={() => setHoveredIndex(index)} onMouseLeave={() => setHoveredIndex(null)} onTouchStart={() => setHoveredIndex(index)}>
-                        <ServiceComponent
-                            baseImage={service.baseImage}
-                            hoverImage={service.hoverImage}
-                            text={service.text}
-                        />
-                        {isMobile && hoveredIndex === index && (
-                            <div className="service-description visible">
-                                {service.description}
+            <div className="services-container">
+                {isMedium && !isMobile ? (
+                    <>
+                        {/* First Group of Services */}
+                        {firstGroup.map((service, index) => (
+                            <div
+                                key={index}
+                                className="service-item"
+                                onMouseEnter={() => setHoveredFirstGroupIndex(index)}
+                                onMouseLeave={() => setHoveredFirstGroupIndex(null)}
+                                onTouchStart={() => setHoveredFirstGroupIndex(index)}
+                            >
+                                <ServiceComponent
+                                    baseImage={service.baseImage}
+                                    hoverImage={service.hoverImage}
+                                    text={service.text}
+                                />
+                                {isMobile && hoveredFirstGroupIndex === index && (
+                                    <div className="service-description visible">
+                                        {service.description}
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
-                ))}
+                        ))}
+
+                        {/* Description Between Rows */}
+                        <div className={`service-description between-rows ${hoveredFirstGroupIndex !== null ? 'visible' : ''}`}>
+                            {hoveredFirstGroupIndex !== null && firstGroup[hoveredFirstGroupIndex].description}
+                        </div>
+
+
+                        {/* Second Group of Services */}
+                        {secondGroup.map((service, index) => (
+                            <div
+                                key={splitIndex + index}
+                                className="service-item"
+                                onMouseEnter={() => setHoveredSecondGroupIndex(splitIndex + index)}
+                                onMouseLeave={() => setHoveredSecondGroupIndex(null)}
+                                onTouchStart={() => setHoveredSecondGroupIndex(splitIndex + index)}
+                            >
+                                <ServiceComponent
+                                    baseImage={service.baseImage}
+                                    hoverImage={service.hoverImage}
+                                    text={service.text}
+                                />
+                                {isMobile && hoveredSecondGroupIndex === splitIndex + index && (
+                                    <div className="service-description visible">
+                                        {service.description}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </>
+                ) : (
+                    // Default Layout for Mobile
+                    services.map((service, index) => (
+                        <div
+                            key={index}
+                            className="service-item"
+                            onMouseEnter={() => setHoveredSecondGroupIndex(index)}
+                            onMouseLeave={() => setHoveredSecondGroupIndex(null)}
+                            onTouchStart={() => setHoveredSecondGroupIndex(index)}
+                        >
+                            <ServiceComponent
+                                baseImage={service.baseImage}
+                                hoverImage={service.hoverImage}
+                                text={service.text}
+                            />
+                            {isMobile && hoveredSecondGroupIndex === index && (
+                                <div className="service-description visible">
+                                    {service.description}
+                                </div>
+                            )}
+                        </div>
+                    ))
+                )}
             </div>
 
-            <div className="space" />
+            {/* Description Below All Items for Larger Screens */}
 
-            {!isMobile && hoveredIndex !== null && (
-                <div className="service-description visible">
-                    {services[hoveredIndex].description}
+            {!isMobile && (
+                <div className={`service-description ${hoveredSecondGroupIndex !== null ? 'visible' : ''}`}>
+                    {hoveredSecondGroupIndex !== null && services[hoveredSecondGroupIndex].description}
                 </div>
             )}
-            
+
+            <div className="space" />
         </>
     );
 };

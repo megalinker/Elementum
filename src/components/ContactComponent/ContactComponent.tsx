@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import KAI from '../KAI/KAI';
 import FormComponent from './FormComponent/FormComponent';
 
 import './ContactComponent.css';
 
-const ContactComponent: React.FC = () => {
+interface ContactComponentProps {
+    onLoaded: () => void;
+}
+
+const ContactComponent: React.FC<ContactComponentProps> = ({ onLoaded }) => {
+
+    const hasLoadedRef = useRef(false);
+
+    const handleKAILoaded = () => {
+        if (!hasLoadedRef.current) {
+            onLoaded();
+            hasLoadedRef.current = true;
+        }
+    };
+
     return (
         <div className="contact-container">
             <div className="contact-left">
@@ -20,7 +34,7 @@ const ContactComponent: React.FC = () => {
                 <FormComponent />
             </div>
             <div className="contact-right">
-                <KAI />
+                <KAI onLoaded={handleKAILoaded} />
             </div>
         </div>
     );

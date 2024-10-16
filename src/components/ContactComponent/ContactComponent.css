@@ -15,6 +15,9 @@
 .contact-left {
     max-width: 33%;
     min-width: 400px;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
 }
 
 .contact-right {
@@ -43,18 +46,22 @@
         min-width: 400px;
 
         p {
-            min-width: 425px;
+            min-width: 300px;
         }
     }
 
     .contact-right {
         height: 27vw;
         width: 50%;
-        min-width: 370px;
+        min-width: 300px;
         min-height: 275px;
     }
+    
 }
 
 h3 {
     color: cyan;
+    width: 80vw;
+    max-width: 100%;
+    min-width: 300px;
 }

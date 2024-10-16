@@ -132,3 +132,35 @@
     display: flex;
     justify-content: center;
 }
+
+@media (max-width: 450px) {
+    .form-component {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .yellow-blur-line1 {
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        filter: blur(4px);
+        pointer-events: none;
+        height: 100%;
+        width: 300px;
+        top: -1px
+    }
+
+    .input-f{
+        height: 86%;
+    }
+
+    .message-input-icon {
+        margin-top: -130px;
+    }
+
+    .form-textarea {
+        height: 152px;
+    }
+}

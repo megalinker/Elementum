@@ -7,9 +7,11 @@
 .services-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 6vw;
+    column-gap: 6vw;
+    row-gap: 1vw;
     justify-content: center;
     width: 80vw;
+    position: relative;
 }
 
 .service-item {
@@ -34,6 +36,15 @@
 .service-description.visible {
     opacity: 1;
 }
+
+.service-description.between-rows {
+    width: 60vw;
+    min-width: 350px;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+
 
 @media (max-width: 1300px) {
 

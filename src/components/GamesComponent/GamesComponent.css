@@ -11,7 +11,7 @@
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
-    
+
 }
 
 .games-component {
@@ -113,5 +113,29 @@
     .game-buttons-container {
         column-gap: 25px;
         row-gap: 100px;
+    }
+
+    .video-element {
+        width: 80%;
+    }
+
+    .gradient-top-left {
+        left: 10%;
+        width: 50%;
+    }
+
+    .gradient-bottom-left {
+        left: 10%;
+        width: 50%;
+    }
+
+    .gradient-top-right {
+        right: 10%;
+        width: 50%;
+    }
+
+    .gradient-bottom-right {
+        right: 10%;
+        width: 50%;
     }
 }

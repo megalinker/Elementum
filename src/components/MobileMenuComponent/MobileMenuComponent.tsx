@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './MobileMenuComponent.css';
+import KAILoading from '/assets/KAILoading.webp';
+import ElementumLogo from '../Texts/ElementumLogo/ElementumLogo';
 
 interface MobileMenuComponentProps {
     scrollToSection: (section: 'home' | 'games' | 'about' | 'services' | 'contact' | 'socials') => void;
@@ -42,6 +44,9 @@ const MobileMenuComponent: React.FC<MobileMenuComponentProps> = ({ scrollToSecti
     return (
         <div className="menu-overlay">
             <div className="menu-container" ref={menuRef} role="menu">
+                <div className="elementum">
+                    <ElementumLogo />
+                </div>
                 <button
                     onClick={() => handleMenuItemClick('home')}
                     className="menu-item"
@@ -84,6 +89,8 @@ const MobileMenuComponent: React.FC<MobileMenuComponentProps> = ({ scrollToSecti
                 >
                     Socials
                 </button>
+
+                <img src={KAILoading} alt="KAI" className="kai" />
             </div>
         </div>
     );

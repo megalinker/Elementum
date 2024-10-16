@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import MemberComponent from './MemberComponent/MemberComponent';
 import './TeamComponent.css';
 
@@ -11,6 +11,10 @@ interface Member {
     github?: string;
     discord?: string;
     instagram?: string;
+}
+
+interface TeamComponentProps {
+    onLoaded: () => void;
 }
 
 const membersData: Member[] = [
@@ -59,7 +63,32 @@ const membersData: Member[] = [
     },
 ];
 
-const TeamComponent: React.FC = () => {
+const TeamComponent: React.FC<TeamComponentProps> = ({ onLoaded }) => {
+
+    const hasLoadedRef = useRef(false);
+
+    useEffect(() => {
+        const preloadImages = async () => {
+            const imagePromises = membersData.map((member) => {
+                return new Promise<void>((resolve) => {
+                    const img = new Image();
+                    img.src = member.imageSrc;
+                    img.onload = () => resolve();
+                    img.onerror = () => resolve();
+                });
+            });
+
+            await Promise.all(imagePromises);
+
+            if (!hasLoadedRef.current) {
+                onLoaded();
+                hasLoadedRef.current = true;
+            }
+        };
+
+        preloadImages();
+    }, [onLoaded]);
+
     return (
         <div className="members-list-container">
             {membersData.map((member) => (

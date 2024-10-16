@@ -95,6 +95,7 @@
         text-align: left;
     }
 
+    animation: slideInLeft 0.3s forwards;
 }
 
 .overlay-text.left-text-mobile {
@@ -108,6 +109,7 @@
         min-width: 75%;
     }
 
+    animation: appearText 0.5s forwards;
 }
 
 .overlay-text.right-text-mobile {
@@ -143,10 +145,13 @@
         background-size: contain;
         background-repeat: no-repeat;
     }
+
+    animation: appearText 0.5s forwards;
 }
 
 .overlay-text.right-text {
     left: 77.5vw;
+    animation: slideInRight 0.3s forwards;
 }
 
 .overlay-text.right-text ul {
@@ -174,13 +179,47 @@
     background-repeat: no-repeat;
 }
 
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes appearText {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 .card1-wrapper {
     position: absolute;
     bottom: 170px;
     right: 280px;
     transform: translate(0, 0);
     animation: card1-move 0.3s forwards;
-    z-index: 2;
+    z-index: 3;
 }
 
 @keyframes card1-move {
@@ -236,7 +275,7 @@
     left: 0px;
     transform: translate(0, 0);
     animation: card2-move 0.3s forwards;
-    z-index: 2;
+    z-index: 3;
 }
 
 @keyframes card2-move {
@@ -272,6 +311,7 @@
     transform-origin: bottom left;
     transform: scale(0);
     animation: card2-appear 0.3s forwards;
+
 }
 
 @keyframes card2-appear {
@@ -721,8 +761,8 @@
     }
 
     .hero-section {
-        width: 200px;
-        height: 213px;
+        width: 160px;
+        height: 170px;
     }
 
     .overlay-text {
@@ -738,8 +778,8 @@
     }
 
     .card1-wrapper {
-        bottom: 60px;
-        right: 155px;
+        bottom: 30px;
+        right: 120px;
     }
 
     @keyframes card1-appear {
@@ -769,8 +809,8 @@
     }
 
     .card2-wrapper {
-        bottom: 80px;
-        left: 5px;
+        bottom: 55px;
+        left: 0px;
     }
 
     @keyframes card2-appear {
@@ -800,8 +840,8 @@
     }
 
     .card3-wrapper {
-        bottom: 115px;
-        right: 15px;
+        bottom: 85px;
+        right: 8px;
     }
 
     @keyframes card3-appear {
@@ -831,8 +871,8 @@
     }
 
     .aliadrone-wrapper {
-        top: 103px;
-        right: 85px;
+        top: 63px;
+        right: 60px;
     }
 
     @keyframes aliadrone-appear {
@@ -862,8 +902,8 @@
     }
 
     .redrocket-wrapper {
-        bottom: 165px;
-        left: 140px;
+        bottom: 120px;
+        left: 100px;
     }
 
     @keyframes redrocket-appear {
@@ -893,8 +933,8 @@
     }
 
     .grayrocket-wrapper {
-        bottom: 160px;
-        right: 90px;
+        bottom: 115px;
+        right: 65px;
     }
 
     @keyframes grayrocket-appear {

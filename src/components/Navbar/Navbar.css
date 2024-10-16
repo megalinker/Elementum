@@ -5,10 +5,16 @@
     left: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, clip-path 0.5s ease-in-out;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+}
+
+.navbar.default-clip,
+.navbar.default-clip-mobile,
+.navbar.hovered-clip {
+    transition: clip-path 0.5s ease-in-out;
 }
 
 .navbar.default-clip {
@@ -28,6 +34,10 @@
             41.3% 101%,
             39.3% 55%,
             0% 55%);
+}
+
+.navbar.hovered-clip {
+    transition: clip-path 0.6s ease-in-out;
 }
 
 .navbar.default-clip-mobile {
@@ -85,12 +95,21 @@
     width: 10vw;
 }
 
+.navbar-logo-ultrasmall {
+    transform: translateY(-100%);
+}
+
+
 .navbar-svg {
     margin-top: 5px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.5s ease-in-out;
     position: absolute;
     top: 33px;
     pointer-events: none;
+}
+
+.shape {
+    transition: d 0.5s ease-in-out, stroke 0.5s ease-in-out;
 }
 
 .diagonal {
@@ -103,6 +122,7 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition-delay: 0s;
 }
 
 .navbar-button {
@@ -118,10 +138,12 @@
     color: #AF50CE;
 }
 
-.navbar:hover .navbar-buttons {
+.navbar.hovered-clip .navbar-buttons {
     opacity: 1;
     visibility: visible;
+    transition-delay: 0.4s;
 }
+
 
 .left-buttons {
     position: absolute;
@@ -138,7 +160,7 @@
 .navbar-menu-button {
     position: absolute;
     left: 20px;
-    top: 22%;
+    top: 25%;
     transform: translateY(-50%);
     background: none;
     border: none;

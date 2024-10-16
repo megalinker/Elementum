@@ -11,6 +11,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ scrollToSection, openMenu }) => {
 
     const isMobile = useMediaQuery({ query: '(max-width: 950px)' });
+    const isUltraSmall = useMediaQuery({ query: '(max-width: 450px)' });
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -20,10 +21,22 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToSection, openMenu }) => {
     const mobilePath1Default = "M500,5 L1000,5 L1050,29 L1273,29";
     const mobilePath2Default = "M2044,5 L1544,5 L1493,29 L1273,29";
 
-    const path1Default = isMobile ? mobilePath1Default : desktopPath1Default;
+    const ultraSmallPath1Default = "M500,5 L1273,5";
+    const ultraSmallPath2Default = "M2044,5 L1273,5";
+
+    const path1Default = isUltraSmall
+        ? ultraSmallPath1Default
+        : isMobile
+            ? mobilePath1Default
+            : desktopPath1Default;
     const path1Hover = "M0,5 L500,5 L550,49 L1273,49";
 
-    const path2Default = isMobile ? mobilePath2Default : desktopPath2Default;
+    const path2Default = isUltraSmall
+        ? ultraSmallPath2Default
+        : isMobile
+            ? mobilePath2Default
+            : desktopPath2Default;
+
     const path2Hover = "M2544,5 L2044,5 L1993,49 L1273,49";
 
     const gradient1 = isHovered ? "hoverStrokeGradient" : "strokeGradient";
@@ -82,7 +95,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToSection, openMenu }) => {
                 {/* Logo and SVG */}
 
                 <div className="navbar-logo">
-                    <ElementumLogo />
+                    <div className={isUltraSmall ? "navbar-logo-ultrasmall" : ""}>
+                        <ElementumLogo />
+                    </div>
                     <svg className="navbar-svg" width="100%" height="50" viewBox="0 0 2544 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
 
                         <defs>

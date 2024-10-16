@@ -1,7 +1,8 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import GameButtonComponent from './GameButtonComponent/GameButtonComponent';
 import PurpleButtonComponent from '../PurpleButtonComponent/PurpleButtonComponent';
 import './GamesComponent.css';
+import { useMediaQuery } from 'react-responsive';
 
 interface VideoSource {
     src: string;
@@ -25,6 +26,7 @@ interface SectionRefs {
 
 interface GamesComponentProps {
     scrollToSection: (section: keyof SectionRefs) => void;
+    onLoaded: () => void;
 }
 
 const gamesList: GameData[] = [
@@ -75,85 +77,161 @@ const gamesList: GameData[] = [
     },
 ];
 
-const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(
-    ({ scrollToSection }, ref) => {
+const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scrollToSection, onLoaded }, ref) => {
 
-        const [currentGame, setCurrentGame] = useState<GameData>(
-            gamesList.find((game) => !game.comingSoon) || gamesList[0]
-        );
+    const isMobile = useMediaQuery({ query: '(max-width: 950px)' });
 
-        const handleGameButtonClick = (gameId: string) => {
-            scrollToSection('highlightedgame');
-            const selectedGame = gamesList.find((game) => game.id === gameId);
-            if (selectedGame && !selectedGame.comingSoon) {
-                setCurrentGame(selectedGame);
+    const [currentGame, setCurrentGame] = useState<GameData>(
+        gamesList.find((game) => !game.comingSoon) || gamesList[0]
+    );
+
+    const [loadedResources, setLoadedResources] = useState(0);
+    const [totalResources, setTotalResources] = useState(0);
+
+    // Keep track of loaded games to prevent reloading
+    const loadedGames = React.useRef<Set<string>>(new Set());
+
+    // Function to determine compatible video source
+    const getCompatibleVideoSource = (videoSources: VideoSource[]): VideoSource | null => {
+        const videoElement = document.createElement('video');
+        for (const source of videoSources) {
+            if (videoElement.canPlayType(source.type).replace('no', '')) {
+                return source;
             }
+        }
+        return null;
+    };
+
+    useEffect(() => {
+        let isCancelled = false; // To avoid updating state after unmount
+
+        const preloadResources = () => {
+            let resourcesToLoad = 0;
+
+            gamesList.forEach((game) => {
+                // Preload buttonImage
+                if (game.buttonImage) {
+                    resourcesToLoad += 1;
+                    const img = new Image();
+                    img.src = game.buttonImage;
+                    img.onload = img.onerror = () => {
+                        if (!isCancelled) setLoadedResources((prev) => prev + 1);
+                    };
+                }
+
+                // Preload backgroundImage
+                if (game.backgroundImage) {
+                    resourcesToLoad += 1;
+                    const img = new Image();
+                    img.src = game.backgroundImage;
+                    img.onload = img.onerror = () => {
+                        if (!isCancelled) setLoadedResources((prev) => prev + 1);
+                    };
+                }
+
+                // Preload compatible videoSource
+                if (game.videoSources) {
+                    const compatibleSource = getCompatibleVideoSource(game.videoSources);
+                    if (compatibleSource) {
+                        resourcesToLoad += 1;
+                        const video = document.createElement('video');
+                        video.src = compatibleSource.src;
+                        video.oncanplaythrough = video.onerror = () => {
+                            if (!isCancelled) setLoadedResources((prev) => prev + 1);
+                        };
+                    }
+                }
+            });
+
+            setTotalResources(resourcesToLoad);
         };
 
-        return (
-            <div className="games-component">
+        preloadResources();
 
-                <h1 className="center-text" ref={ref}>{currentGame.title}</h1>
-                <p className="center-text" style={{ maxWidth: '100vw' }}>{currentGame.description}</p>
+        return () => {
+            isCancelled = true;
+        };
+    }, []);
 
-                <div className="space" />
+    useEffect(() => {
+        if (totalResources > 0 && loadedResources === totalResources) {
+            onLoaded();
+        }
+    }, [loadedResources, totalResources]);
 
-                <div
-                    className="video-background-container"
-                    style={{
-                        backgroundImage: `url(${currentGame.backgroundImage || 'path/to/default-background.jpg'
-                            })`,
-                    }}
-                >
-                    {/* Gradient overlays */}
-                    <div className="gradient-overlay gradient-top-left"></div>
-                    <div className="gradient-overlay gradient-top-right"></div>
-                    <div className="gradient-overlay gradient-bottom-left"></div>
-                    <div className="gradient-overlay gradient-bottom-right"></div>
+    const handleGameButtonClick = (gameId: string) => {
+        scrollToSection('highlightedgame');
+        const selectedGame = gamesList.find((game) => game.id === gameId);
+        if (selectedGame && !selectedGame.comingSoon) {
+            setCurrentGame(selectedGame);
+        }
+    };
 
-                    {/* Video */}
-                    {currentGame.videoSources && (
-                        <video key={currentGame.id} className="video-element" loop autoPlay muted>
-                            {currentGame.videoSources.map((source, index) => (
-                                <source key={index} src={source.src} type={source.type} />
-                            ))}
-                            Your browser does not support the video tag.
-                        </video>
-                    )}
-                </div>
+    const compatibleVideoSource = currentGame.videoSources
+        ? getCompatibleVideoSource(currentGame.videoSources)
+        : null;
 
-                <div className="space" />
+    return (
+        <div className="games-component">
 
-                {currentGame.link && (
-                    <div className="try-button-container">
-                        <a href={currentGame.link} className="purple-button-link">
-                            <PurpleButtonComponent>
-                                Try {currentGame.title} Here
-                            </PurpleButtonComponent>
-                        </a>
-                    </div>
+            <h1 className="center-text" ref={ref}>{currentGame.title}</h1>
+            <p className="center-text" style={{ maxWidth: '100vw' }}>{currentGame.description}</p>
+
+            <div className="space" />
+
+            <div
+                className="video-background-container"
+                style={{
+                    backgroundImage: !isMobile ? `url(${currentGame.backgroundImage})` : 'none',
+                }}
+            >
+                {/* Gradient overlays */}
+                <div className="gradient-overlay gradient-top-left"></div>
+                <div className="gradient-overlay gradient-top-right"></div>
+                <div className="gradient-overlay gradient-bottom-left"></div>
+                <div className="gradient-overlay gradient-bottom-right"></div>
+
+                {/* Video */}
+                {compatibleVideoSource && (
+                    <video key={currentGame.id} className="video-element" loop autoPlay muted>
+                        <source src={compatibleVideoSource.src} type={compatibleVideoSource.type} />
+                        Your browser does not support the video tag.
+                    </video>
                 )}
-
-                <div className="space" />
-
-                <div className="game-buttons-container">
-                    {gamesList.map((game) => (
-                        <GameButtonComponent
-                            key={game.id}
-                            gameId={game.id}
-                            onClick={!game.comingSoon ? handleGameButtonClick : undefined}
-                            label={game.title}
-                            buttonImage={game.buttonImage}
-                            comingSoon={game.comingSoon}
-                            title={game.title}
-                            description={game.description}
-                            selected={currentGame.id === game.id}
-                        />
-                    ))}
-                </div>
             </div>
-        );
-    });
+
+            <div className="space" />
+
+            {currentGame.link && (
+                <div className="try-button-container">
+                    <a href={currentGame.link} className="purple-button-link">
+                        <PurpleButtonComponent>
+                            Try {currentGame.title} Here
+                        </PurpleButtonComponent>
+                    </a>
+                </div>
+            )}
+
+            <div className="space" />
+
+            <div className="game-buttons-container">
+                {gamesList.map((game) => (
+                    <GameButtonComponent
+                        key={game.id}
+                        gameId={game.id}
+                        onClick={!game.comingSoon ? handleGameButtonClick : undefined}
+                        label={game.title}
+                        buttonImage={game.buttonImage}
+                        comingSoon={game.comingSoon}
+                        title={game.title}
+                        description={game.description}
+                        selected={currentGame.id === game.id}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+});
 
 
 export default GamesComponent;
