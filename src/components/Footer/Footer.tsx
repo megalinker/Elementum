@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react';
 import './Footer.css';
-import TCG_AV1 from '/assets/ElementumVideo/TCG_AV1.webm';
 import TCG_VP9 from '/assets/ElementumVideo/TCG_VP9.webm';
 import TCG_MP4 from '/assets/ElementumVideo/TCG_MP4.mp4';
 import xIcon from '/assets/SocialMediaIcons/x_icon.svg';
@@ -161,7 +160,6 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(({ scrollToSection }, ref
                 {/* Background Video */}
                 <div className="video-background">
                     <video autoPlay loop muted playsInline>
-                        <source src={TCG_AV1} type='video/webm; codecs="av01"' />
                         <source src={TCG_VP9} type='video/webm; codecs="vp9"' />
                         <source src={TCG_MP4} type="video/mp4" />
                         Your browser does not support the video tag.
