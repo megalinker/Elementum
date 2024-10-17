@@ -147,7 +147,6 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(({ scrollToSection }, ref
             <div className="footer-content">
                 <div className="links-row">
                     <FooterLink name="X" iconSrc={xIcon} link="https://x.com/elementumone" />
-                    <FooterLink name="E-mail" iconSrc={EmailIcon} onClick={() => scrollToSection('contact')} />
                     <FooterLink name="DSCVR" iconSrc={DSCVRIcon} link="https://dscvr.one/p/elementum" />
                     <FooterLink name="OpenChat" iconSrc={OpenChatIcon} link="https://oc.app/community/oyxo7-ayaaa-aaaar-bgebq-cai" />
                 </div>

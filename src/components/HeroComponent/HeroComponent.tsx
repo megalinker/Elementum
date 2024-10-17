@@ -12,6 +12,10 @@ import GrayRocket_Webp from '/assets/HeroAssets/GrayRocket/GrayRocket.webp';
 import P_KAI from '/assets/HeroAssets/P_KAI.webp';
 import { useMediaQuery } from 'react-responsive';
 
+let hasPreloadedHeroAssets = false;
+let globalRedRocketSrc: string | null = null;
+let globalGrayRocketSrc: string | null = null;
+
 interface HeroComponentProps {
     onLoaded: () => void;
 }
@@ -27,114 +31,119 @@ const HeroComponent: React.FC<HeroComponentProps> = ({ onLoaded }) => {
     const [isRightHovered, setIsRightHovered] = useState(false);
 
     useEffect(() => {
-        const preloadAssets = async () => {
-            // List of assets that are always needed
-            const imagesToPreload = [Ramses, Aliadrone, Card1, Card2, Card3, P_KAI];
-            let videosToPreload: string[] = [];
-            let imagesToPreloadDynamic: string[] = [];
 
-            const getSupportedVideoSrc = (): {
-                redRocket: string | null;
-                grayRocket: string | null;
-            } => {
+        let isCancelled = false; // **Flag to Track Component Mount Status**
+
+        // **Preload a Single Image**
+        const preloadImage = (src: string): Promise<void> => {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.src = src;
+                img.onload = () => resolve();
+                img.onerror = () => {
+                    console.error(`Image failed to load: ${src}`);
+                    resolve(); // **Resolve Even on Error to Prevent Blocking**
+                };
+            });
+        };
+
+        // **Preload a Single Video**
+        const preloadVideo = (src: string): Promise<void> => {
+            return new Promise((resolve) => {
                 const video = document.createElement('video');
+                video.src = src;
+                video.preload = 'auto';
+                video.onloadeddata = () => resolve();
+                video.onerror = () => {
+                    console.error(`Video failed to load: ${src}`);
+                    resolve(); // **Resolve Even on Error to Prevent Blocking**
+                };
+            });
+        };
 
-                const canPlayVP9 = video.canPlayType('video/webm; codecs="vp09.00.10.08"');
+        const getSupportedVideoSrc = (): {
+            redRocket: string | null;
+            grayRocket: string | null;
+        } => {
+            const video = document.createElement('video');
 
-                if (canPlayVP9 === 'probably' || canPlayVP9 === 'maybe') {
-                    return { redRocket: RedRocket_VP9, grayRocket: GrayRocket_VP9 };
-                } else {
-                    // Fallback to images
-                    return { redRocket: null, grayRocket: null };
+            const canPlayVP9 = video.canPlayType('video/webm; codecs="vp09.00.10.08"');
+
+            if (canPlayVP9 === 'probably' || canPlayVP9 === 'maybe') {
+                return { redRocket: RedRocket_VP9, grayRocket: GrayRocket_VP9 };
+            } else {
+                // **Fallback to WebP Images**
+                return { redRocket: RedRocket_Webp, grayRocket: GrayRocket_Webp };
+            }
+        };
+
+        const preloadAssets = async () => {
+            if (hasPreloadedHeroAssets) {
+                // **Assets Already Preloaded, Use Cached Sources**
+                if (!isCancelled) {
+                    setRedRocketSrc(globalRedRocketSrc);
+                    setGrayRocketSrc(globalGrayRocketSrc);
+                    onLoaded();
                 }
-            };
+                return;
+            }
 
-            const supportsWebP = (): Promise<boolean> => {
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    img.src =
-                        'data:image/webp;base64,UklGRiIAAABXRUJQVlA4TAYAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
-                    img.onload = () => resolve(true);
-                    img.onerror = () => resolve(false);
-                });
-            };
-
-            // Detect supported video formats
+            // **Determine Supported Video Formats**
             const { redRocket, grayRocket } = getSupportedVideoSrc();
 
-            if (redRocket && grayRocket) {
-                videosToPreload.push(redRocket, grayRocket);
+            // **Set Sources Based on Support**
+            if (!isCancelled) {
                 setRedRocketSrc(redRocket);
                 setGrayRocketSrc(grayRocket);
-            } else {
-                // Browser doesn't support AV1 or VP9, check for WebP support
-                const webpSupported = await supportsWebP();
-                if (webpSupported) {
-                    imagesToPreloadDynamic.push(RedRocket_Webp, GrayRocket_Webp);
-                    setRedRocketSrc(RedRocket_Webp);
-                    setGrayRocketSrc(GrayRocket_Webp);
+            }
+
+            // **Preload Static Images**
+            const imagesToPreload = [Ramses, Aliadrone, Card1, Card2, Card3, P_KAI];
+            const imagePromises = imagesToPreload.map((src) => preloadImage(src));
+
+            // **Preload Dynamic Assets (Videos or WebP Images)**
+            let dynamicPreloadPromises: Promise<void>[] = [];
+
+            if (redRocket) {
+                if (redRocket.endsWith('.webm')) {
+                    dynamicPreloadPromises.push(preloadVideo(redRocket));
                 } else {
-                    // Fallback to another format if needed
+                    dynamicPreloadPromises.push(preloadImage(redRocket));
                 }
             }
 
-            // Preload images and videos
-            const allImagesToPreload = [...imagesToPreload, ...imagesToPreloadDynamic];
-            const allPromises: Promise<void>[] = [];
+            if (grayRocket) {
+                if (grayRocket.endsWith('.webm')) {
+                    dynamicPreloadPromises.push(preloadVideo(grayRocket));
+                } else {
+                    dynamicPreloadPromises.push(preloadImage(grayRocket));
+                }
+            }
+            try {
+                // **Await All Preloading Promises**
+                await Promise.all([...imagePromises, ...dynamicPreloadPromises]);
 
-            const preloadImage = (src: string): Promise<void> => {
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    img.src = src;
-                    img.onload = () => {
-                        resolve();
-                    };
-                    img.onerror = () => {
-                        console.error(`Image failed to load: ${src}`);
-                        resolve();
-                    };
-                });
-            };
+                if (!isCancelled) {
+                    // **Cache the Preloaded Sources**
+                    globalRedRocketSrc = redRocket;
+                    globalGrayRocketSrc = grayRocket;
+                    hasPreloadedHeroAssets = true;
 
-            const preloadVideo = (src: string): Promise<void> => {
-                return new Promise((resolve) => {
-                    const video = document.createElement('video');
-                    video.src = src;
-                    video.onloadeddata = () => {
-                        resolve();
-                    };
-                    video.onerror = () => {
-                        console.error(`Video failed to load: ${src}`);
-                        resolve();
-                    };
-                });
-            };
-
-            allImagesToPreload.forEach((src) => {
-                allPromises.push(preloadImage(src));
-            });
-
-            // Preload videos
-            videosToPreload.forEach((src) => {
-                allPromises.push(preloadVideo(src));
-            });
-
-            if (allPromises.length > 0) {
-                Promise.all(allPromises)
-                    .then(() => {
-                        onLoaded(); // All assets are loaded, call onLoaded
-                    })
-                    .catch((error) => {
-                        console.error('Error loading assets', error);
-                        onLoaded(); // Still call onLoaded to proceed
-                    });
-            } else {
-                // In case no additional assets are to be preloaded
-                onLoaded();
+                    onLoaded(); // **Invoke Callback After Preloading Completes**
+                }
+            } catch (error) {
+                console.error('Error preloading assets:', error);
+                if (!isCancelled) {
+                    onLoaded(); // **Invoke Callback Even on Errors to Proceed**
+                }
             }
         };
 
         preloadAssets();
+
+        return () => {
+            isCancelled = true; // **Cleanup Flag on Unmount**
+        };
     }, []);
 
 

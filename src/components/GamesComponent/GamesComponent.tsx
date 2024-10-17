@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import GameButtonComponent from './GameButtonComponent/GameButtonComponent';
 import PurpleButtonComponent from '../PurpleButtonComponent/PurpleButtonComponent';
 import './GamesComponent.css';
@@ -88,6 +88,8 @@ const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scroll
     // Keep track of loaded games to prevent reloading
     const loadedGames = React.useRef<Set<string>>(new Set());
 
+    const [autoCycleActive, setAutoCycleActive] = useState(true);
+
     // Function to determine compatible video source
     const getCompatibleVideoSource = (videoSources: VideoSource[]): VideoSource | null => {
         const videoElement = document.createElement('video');
@@ -99,51 +101,82 @@ const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scroll
         return null;
     };
 
+    const preloadImage = (src: string): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = () => resolve();
+            img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+        });
+    };
+
+    const preloadVideo = (src: string): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            const video = document.createElement('video');
+            video.src = src;
+            video.preload = 'auto';
+            video.oncanplaythrough = () => resolve();
+            video.onerror = () => reject(new Error(`Failed to load video: ${src}`));
+        });
+    };
+
+    const preloadGameResources = async (game: GameData) => {
+        const promises: Promise<void>[] = [];
+
+        if (game.buttonImage) {
+            promises.push(preloadImage(game.buttonImage));
+        }
+
+        if (game.backgroundImage) {
+            promises.push(preloadImage(game.backgroundImage));
+        }
+
+        if (game.videoSources) {
+            const compatibleSource = getCompatibleVideoSource(game.videoSources);
+            if (compatibleSource) {
+                promises.push(preloadVideo(compatibleSource.src));
+            }
+        }
+
+        try {
+            await Promise.all(promises);
+            setLoadedResources(prev => prev + promises.length);
+            loadedGames.current.add(game.id);
+        } catch (error) {
+            console.error(`Error preloading resources for game ${game.id}:`, error);
+            setLoadedResources(prev => prev + promises.length);
+            loadedGames.current.add(game.id);
+        }
+    };
+
     useEffect(() => {
         let isCancelled = false;
 
-        const preloadResources = () => {
+        const preloadAllResources = async () => {
             let resourcesToLoad = 0;
 
             gamesList.forEach((game) => {
-                // Preload buttonImage
-                if (game.buttonImage) {
-                    resourcesToLoad += 1;
-                    const img = new Image();
-                    img.src = game.buttonImage;
-                    img.onload = img.onerror = () => {
-                        if (!isCancelled) setLoadedResources((prev) => prev + 1);
-                    };
-                }
-
-                // Preload backgroundImage
-                if (game.backgroundImage) {
-                    resourcesToLoad += 1;
-                    const img = new Image();
-                    img.src = game.backgroundImage;
-                    img.onload = img.onerror = () => {
-                        if (!isCancelled) setLoadedResources((prev) => prev + 1);
-                    };
-                }
-
-                // Preload compatible videoSource
-                if (game.videoSources) {
-                    const compatibleSource = getCompatibleVideoSource(game.videoSources);
-                    if (compatibleSource) {
-                        resourcesToLoad += 1;
-                        const video = document.createElement('video');
-                        video.src = compatibleSource.src;
-                        video.oncanplaythrough = video.onerror = () => {
-                            if (!isCancelled) setLoadedResources((prev) => prev + 1);
-                        };
+                if (!game.comingSoon) {
+                    if (game.buttonImage) resourcesToLoad += 1;
+                    if (game.backgroundImage) resourcesToLoad += 1;
+                    if (game.videoSources) {
+                        const compatibleSource = getCompatibleVideoSource(game.videoSources);
+                        if (compatibleSource) resourcesToLoad += 1;
                     }
                 }
             });
 
             setTotalResources(resourcesToLoad);
+
+            for (const game of gamesList) {
+                if (!game.comingSoon && !loadedGames.current.has(game.id)) {
+                    await preloadGameResources(game);
+                    if (isCancelled) break;
+                }
+            }
         };
 
-        preloadResources();
+        preloadAllResources();
 
         return () => {
             isCancelled = true;
@@ -151,7 +184,7 @@ const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scroll
     }, []);
 
     useEffect(() => {
-        if (totalResources > 0 && loadedResources === totalResources) {
+        if (totalResources > 0 && loadedResources >= totalResources) {
             onLoaded();
         }
     }, [loadedResources, totalResources]);
@@ -164,9 +197,33 @@ const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scroll
         }
     };
 
-    const compatibleVideoSource = currentGame.videoSources
-        ? getCompatibleVideoSource(currentGame.videoSources)
-        : null;
+    const compatibleVideoSource = useMemo(() => {
+        return currentGame.videoSources ? getCompatibleVideoSource(currentGame.videoSources) : null;
+    }, [currentGame.videoSources]);
+
+    useEffect(() => {
+        let interval: ReturnType<typeof setInterval>;
+
+        if (autoCycleActive) {
+            interval = setInterval(() => {
+                setCurrentGame((prevGame) => {
+                    const currentIndex = gamesList.findIndex((game) => game.id === prevGame.id);
+                    let nextIndex = (currentIndex + 1) % gamesList.length;
+
+                    // Find the next available game that is not "Coming Soon"
+                    while (gamesList[nextIndex]?.comingSoon) {
+                        nextIndex = (nextIndex + 1) % gamesList.length;
+                    }
+
+                    return gamesList[nextIndex]; // Return the next game
+                });
+            }, 8000); // Change game every 8 seconds
+        }
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [autoCycleActive]);
 
     return (
         <div className="games-component">
@@ -179,7 +236,7 @@ const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scroll
             <div
                 className="video-background-container"
                 style={{
-                    backgroundImage: !isMobile ? `url(${currentGame.backgroundImage})` : 'none',
+                    backgroundImage: !isMobile && currentGame.backgroundImage ? `url(${currentGame.backgroundImage})` : 'none',
                 }}
             >
                 {/* Gradient overlays */}
@@ -190,8 +247,15 @@ const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scroll
 
                 {/* Video */}
                 {compatibleVideoSource && (
-                    <video key={currentGame.id} className="video-element" loop autoPlay muted>
-                        <source src={compatibleVideoSource.src} type={compatibleVideoSource.type} />
+                    <video
+                        key={compatibleVideoSource.src}
+                        className="video-element"
+                        loop
+                        autoPlay
+                        muted
+                        preload="auto"
+                        src={compatibleVideoSource.src}
+                    >
                         Your browser does not support the video tag.
                     </video>
                 )}
@@ -201,7 +265,7 @@ const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scroll
 
             {currentGame.link && (
                 <div className="try-button-container">
-                    <a href={currentGame.link} className="purple-button-link">
+                    <a href={currentGame.link} className="purple-button-link" target="_blank" rel="noopener noreferrer">
                         <PurpleButtonComponent>
                             Try {currentGame.title} Here
                         </PurpleButtonComponent>
