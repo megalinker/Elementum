@@ -194,6 +194,7 @@ const GamesComponent = forwardRef<HTMLDivElement, GamesComponentProps>(({ scroll
         const selectedGame = gamesList.find((game) => game.id === gameId);
         if (selectedGame && !selectedGame.comingSoon) {
             setCurrentGame(selectedGame);
+            setAutoCycleActive(false);
         }
     };
 
