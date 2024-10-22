@@ -1,1 +1,1 @@
-# Vite + React + Motoko Simplified
+# Elementum
