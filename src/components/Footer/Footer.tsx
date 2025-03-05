@@ -3,7 +3,6 @@ import './Footer.css';
 import TCG_VP9 from '/assets/ElementumVideo/TCG_VP9.webm';
 import TCG_MP4 from '/assets/ElementumVideo/TCG_MP4.mp4';
 import xIcon from '/assets/SocialMediaIcons/x_icon.svg';
-import EmailIcon from '/assets/SocialMediaIcons/email_icon.svg';
 import DSCVRIcon from '/assets/SocialMediaIcons/dscvr_logo.svg';
 import OpenChatIcon from '/assets/SocialMediaIcons/openchat_logo.svg';
 
