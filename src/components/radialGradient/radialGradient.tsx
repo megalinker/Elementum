@@ -1,5 +1,3 @@
-// src/components/RadialGradient/RadialGradient.tsx
-
 import React from 'react';
 import styles from './radialGradient.module.scss';
 import tinycolor from 'tinycolor2';
